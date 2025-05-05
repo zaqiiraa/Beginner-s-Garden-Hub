@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plant Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0fdf4;
+      color: #065f46;
+      padding: 2rem;
+      max-width: 700px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #047857;
+    }
+    form {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .question {
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    select {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid #d1d5db;
+    }
+    button {
+      background-color: #047857;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #065f46;
+    }
+    #result {
+      margin-top: 2rem;
+      background: #ecfdf5;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Find Your Plant Match 🌿</h1>
+  <form id="plantQuiz">
+    <div class="question">
+      <label for="time">How much time can you spend each week?</label>
+      <select id="time">
+        <option value="">Select an option</option>
+        <option value="low">Less than 1 hour</option>
+        <option value="medium">1-3 hours</option>
+        <option value="high">More than 3 hours</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label for="space">Do you have outdoor space or just a windowsill?</label>
+      <select id="space">
+        <option value="">Select an option</option>
+        <option value="indoor">Only a windowsill</option>
+        <option value="outdoor">Outdoor space</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label for="interest">What are you most interested in?</label>
+      <select id="interest">
+        <option value="">Select an option</option>
+        <option value="veggies">Vegetables</option>
+        <option value="flowers">Flowers</option>
+        <option value="herbs">Herbs</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label for="maintenance">Do you want something low-maintenance?</label>
+      <select id="maintenance">
+        <option value="">Select an option</option>
+        <option value="yes">Yes, please!</option>
+        <option value="no">I'm okay with effort</option>
+      </select>
+    </div>
+
+    <button type="submit">Get My Plant Suggestion</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    const form = document.getElementById('plantQuiz');
+    const result = document.getElementById('result');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const time = document.getElementById('time').value;
+      const space = document.getElementById('space').value;
+      const interest = document.getElementById('interest').value;
+      const maintenance = document.getElementById('maintenance').value;
+
+      if (!time || !space || !interest || !maintenance) {
+        result.innerHTML = '<strong>Please answer all questions.</strong>';
+        result.style.display = 'block';
+        return;
+      }
+
+      let suggestion = '';
+
+      if (interest === 'herbs' && space === 'indoor') {
+        suggestion = 'Start with a sunny windowsill herb garden! Basil, mint, or chives are great.';
+      } else if (interest === 'veggies' && space === 'outdoor' && maintenance === 'no') {
+        suggestion = 'Try a raised bed with tomatoes, peppers, and beans!';
+      } else if (interest === 'flowers' && maintenance === 'yes') {
+        suggestion = 'Plant low-maintenance flowers like marigolds, cosmos, or sunflowers.';
+      } else if (interest === 'herbs' && maintenance === 'yes') {
+        suggestion = 'Go for rosemary, thyme, or oregano — hardy and delicious.';
+      } else {
+        suggestion = 'Try a mixed container with herbs and flowers that fit your time and space!';
+      }
+
+      result.innerHTML = `<strong>Your Plant Match:</strong><br>${suggestion}`;
+      result.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
